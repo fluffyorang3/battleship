@@ -3,21 +3,23 @@ function ship(length) {
   let isSunk = false;
 
   function takeHit() {
-    return hits++;
+    hits++;
+    return hits;
   }
 
   function sinkShip() {
-    return (isSunk = true);
+    isSunk = true;
+    return isSunk;
+  }
+
+  function getState() {
+    return { hits, isSunk, length };
   }
   return {
-    hits,
-    isSunk,
     takeHit,
     sinkShip,
-    length,
+    getState,
   };
 }
-
-console.log(ship(3));
 
 export { ship };
