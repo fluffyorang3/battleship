@@ -39,6 +39,16 @@ function orientationSelector() {
   return randomIndex;
 }
 
+function gridCreator() {
+  let grid = Array.from({ length: 10 }, () => Array(10).fill(0));
+  return grid;
+}
+
+function startSelector(row, column) {
+  let grid = gridCreator();
+  return grid;
+}
+
 function placeShip(coordinate, orientation, shipType) {}
 
 export { ship, availableShips, orientationSelector };
