@@ -1,4 +1,9 @@
-import { ship, availableShips, orientationSelector } from "./battleship.js";
+import {
+  ship,
+  availableShips,
+  orientationSelector,
+  randomPositionSelector,
+} from "./battleship.js";
 
 test("Ship sinking", () => {
   expect(ship(3).sinkShip()).toBe(true);
@@ -29,4 +34,12 @@ test("Orientation selector", () => {
     orientationSelector() === "horizontal" ||
       orientationSelector() === "vertical"
   ).toBeTruthy();
+});
+
+test("Random position", () => {
+  expect(typeof randomPositionSelector()).toBe("object");
+});
+
+test("Random position array length", () => {
+  expect(randomPositionSelector().length).toBe(2);
 });

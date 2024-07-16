@@ -35,6 +35,8 @@ const availableShips = (function () {
   return [CARRIER, BATTLESHIP, CRUISER, SUBMARINE, DESTROYER];
 })();
 
+const grid = gridCreator();
+
 function orientationSelector() {
   const orientationOptions = ["horizontal", "vertical"];
   const randomIndex = Math.floor(Math.random() * 2);
@@ -46,10 +48,14 @@ function gridCreator() {
   return grid;
 }
 
-function shipPlacer() {
-  const grid = gridCreator();
+function randomPositionSelector() {
+  let row = Math.floor(Math.random() * 10);
+  let column = Math.floor(Math.random() * 10);
+  return [row, column];
 }
+
+function shipPlacer(type) {}
 
 function placeShip(coordinate, orientation, shipType) {}
 
-export { ship, availableShips, orientationSelector };
+export { ship, availableShips, orientationSelector, randomPositionSelector };
