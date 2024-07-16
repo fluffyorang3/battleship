@@ -1,4 +1,4 @@
-import { ship } from "./battleship.js";
+import { ship, availableShips } from "./battleship.js";
 
 test("ship sinking", () => {
   expect(ship(3).sinkShip()).toBe(true);
@@ -18,4 +18,8 @@ test("test type", () => {
 
 test("test type 2", () => {
   expect(ship(3, "BA").type).toBe("BA");
+});
+
+test("available ship", () => {
+  expect(availableShips[0].type).toBe("CA");
 });
