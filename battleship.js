@@ -1,4 +1,4 @@
-function ship(length) {
+function ship(length, type) {
   let hits = 0;
   let isSunk = false;
 
@@ -19,7 +19,14 @@ function ship(length) {
     takeHit,
     sinkShip,
     getState,
+    type,
   };
 }
+
+let test = ship(3, "CA");
+
+console.log(test.type);
+
+function gameBoard() {}
 
 export { ship };

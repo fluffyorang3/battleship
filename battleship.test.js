@@ -11,3 +11,11 @@ test("ship sinking", () => {
 test("ship length", () => {
   expect(ship(3).getState().length).toBe(3);
 });
+
+test("test type", () => {
+  expect(ship(3, "CA").type).toBe("CA");
+});
+
+test("test type 2", () => {
+  expect(ship(3, "BA").type).toBe("BA");
+});
