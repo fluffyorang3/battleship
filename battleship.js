@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+
 function ship(length, type) {
   let hits = 0;
   let isSunk = false;
@@ -34,9 +36,9 @@ const availableShips = (function () {
 })();
 
 function orientationSelector() {
-  const orientations = ["horizontal", "vertical"];
+  const orientationOptions = ["horizontal", "vertical"];
   const randomIndex = Math.floor(Math.random() * 2);
-  return randomIndex;
+  return orientationOptions[randomIndex];
 }
 
 function gridCreator() {
@@ -44,9 +46,8 @@ function gridCreator() {
   return grid;
 }
 
-function startSelector(row, column) {
-  let grid = gridCreator();
-  return grid;
+function shipPlacer() {
+  const grid = gridCreator();
 }
 
 function placeShip(coordinate, orientation, shipType) {}

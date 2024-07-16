@@ -25,6 +25,8 @@ test("Available ship", () => {
 });
 
 test("Orientation selector", () => {
-  expect(orientationSelector()).toBeGreaterThanOrEqual(0);
-  expect(orientationSelector()).toBeLessThanOrEqual(1);
+  expect(
+    orientationSelector() === "horizontal" ||
+      orientationSelector() === "vertical"
+  ).toBeTruthy();
 });
