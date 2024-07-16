@@ -1,25 +1,30 @@
-import { ship, availableShips } from "./battleship.js";
+import { ship, availableShips, orientationSelector } from "./battleship.js";
 
-test("ship sinking", () => {
+test("Ship sinking", () => {
   expect(ship(3).sinkShip()).toBe(true);
 });
 
-test("ship sinking", () => {
+test("Ship sinking", () => {
   expect(ship(3).takeHit()).toBe(1);
 });
 
-test("ship length", () => {
+test("Ship length", () => {
   expect(ship(3).getState().length).toBe(3);
 });
 
-test("test type", () => {
+test("Test type", () => {
   expect(ship(3, "CA").type).toBe("CA");
 });
 
-test("test type 2", () => {
+test("Test type 2", () => {
   expect(ship(3, "BA").type).toBe("BA");
 });
 
-test("available ship", () => {
+test("Available ship", () => {
   expect(availableShips[0].type).toBe("CA");
+});
+
+test("Orientation selector", () => {
+  expect(orientationSelector()).toBeGreaterThanOrEqual(0);
+  expect(orientationSelector()).toBeLessThanOrEqual(1);
 });

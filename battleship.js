@@ -16,10 +16,6 @@ function ship(length, type) {
     return { hits, isSunk, length };
   }
 
-  function placeShip() {
-    number--;
-    return number;
-  }
   return {
     takeHit,
     sinkShip,
@@ -37,4 +33,12 @@ const availableShips = (function () {
   return [CARRIER, BATTLESHIP, CRUISER, SUBMARINE, DESTROYER];
 })();
 
-export { ship, availableShips };
+function orientationSelector() {
+  const orientations = ["horizontal", "vertical"];
+  const randomIndex = Math.floor(Math.random() * 2);
+  return randomIndex;
+}
+
+function placeShip(coordinate, orientation, shipType) {}
+
+export { ship, availableShips, orientationSelector };
