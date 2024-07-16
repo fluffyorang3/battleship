@@ -15,6 +15,11 @@ function ship(length, type) {
   function getState() {
     return { hits, isSunk, length };
   }
+
+  function placeShip() {
+    number--;
+    return number;
+  }
   return {
     takeHit,
     sinkShip,
@@ -23,10 +28,13 @@ function ship(length, type) {
   };
 }
 
-let test = ship(3, "CA");
-
-console.log(test.type);
-
-function gameBoard() {}
+const availableShips = () => {
+  const CARRIER = ship(5, "CA");
+  const BATTLESHIP = ship(4, "BA");
+  const CRUISER = ship(3, "CR");
+  const SUBMARINE = ship(3, "SU");
+  const DESTROYER = ship(2, "DE");
+  return [CARRIER, BATTLESHIP, CRUISER, SUBMARINE, DESTROYER];
+};
 
 export { ship };
