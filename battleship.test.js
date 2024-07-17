@@ -3,6 +3,7 @@ import {
   availableShips,
   orientationSelector,
   randomPositionSelector,
+  positionChecker,
 } from "./battleship.js";
 
 test("Ship sinking", () => {
@@ -14,19 +15,19 @@ test("Ship sinking", () => {
 });
 
 test("Ship length", () => {
-  expect(ship(3).getState().length).toBe(3);
+  expect(ship(3).length).toBe(3);
 });
 
 test("Test type", () => {
-  expect(ship(3, "CA").type).toBe("CA");
+  expect(ship(3, "CA").symbol).toBe("CA");
 });
 
 test("Test type 2", () => {
-  expect(ship(3, "BA").type).toBe("BA");
+  expect(ship(3, "BA").symbol).toBe("BA");
 });
 
 test("Available ship", () => {
-  expect(availableShips[0].type).toBe("CA");
+  expect(availableShips[0].symbol).toBe("CA");
 });
 
 test("Orientation selector", () => {
@@ -42,4 +43,10 @@ test("Random position", () => {
 
 test("Random position array length", () => {
   expect(randomPositionSelector().length).toBe(2);
+});
+
+test("Position checker", () => {
+  expect(
+    positionChecker(availableShips[0], [3, 5], "horizontal")
+  ).toStrictEqual(["CA", [3, 5], "horizontal"]);
 });

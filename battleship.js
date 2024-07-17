@@ -1,6 +1,7 @@
 import { randomUUID } from "crypto";
+import { start } from "repl";
 
-function ship(length, type) {
+function ship(length, symbol) {
   let hits = 0;
   let isSunk = false;
 
@@ -22,7 +23,8 @@ function ship(length, type) {
     takeHit,
     sinkShip,
     getState,
-    type,
+    symbol,
+    length,
   };
 }
 
@@ -54,8 +56,17 @@ function randomPositionSelector() {
   return [row, column];
 }
 
-function shipPlacer(type) {}
+function positionChecker(shipType, startPosition, orientation) {
+  let shipLength = shipType.length;
+  let shipSymbol = shipType.symbol;
 
-function placeShip(coordinate, orientation, shipType) {}
+  return [shipSymbol, startPosition, orientation];
+}
 
-export { ship, availableShips, orientationSelector, randomPositionSelector };
+export {
+  ship,
+  availableShips,
+  orientationSelector,
+  randomPositionSelector,
+  positionChecker,
+};
