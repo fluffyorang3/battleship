@@ -1,7 +1,7 @@
 import {
   ship,
   availableShips,
-  orientationSelector,
+  randomOrientationSelector,
   randomPositionSelector,
   positionChecker,
 } from "./battleship.js";
@@ -32,8 +32,8 @@ test("Available ship", () => {
 
 test("Orientation selector", () => {
   expect(
-    orientationSelector() === "horizontal" ||
-      orientationSelector() === "vertical"
+    randomOrientationSelector() === "horizontal" ||
+      randomOrientationSelector() === "vertical"
   ).toBeTruthy();
 });
 
