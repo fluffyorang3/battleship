@@ -96,14 +96,37 @@ function columnChecker(startPosition, length) {
   }
 }
 
-function positionChecker(startPosition, shipType, orientation) {
-  let length = shipType.length;
-
+function positionChecker(shipType, startPosition, orientation) {
+  let length = 3;
   if (orientation === "horizontal") {
     return rowChecker(startPosition, length);
   } else {
     return columnChecker(startPosition, length);
   }
+}
+
+function rowSymbol(startPosition, length) {
+  for (let i = 0; i < length; i++) {
+    grid[startPosition[0]][startPosition[1] + i] = shipType.symbol;
+  }
+}
+
+function columnSymbol(startPosition, length) {
+  for (let i = 0; i < length; i++) {
+    grid[startPosition[0] + i][startPosition[1]] = shipType.symbol;
+  }
+}
+
+function symbolPlacer(shipType, startPosition, orientation) {
+  if (orientation === "horizontal") {
+    return rowChecker(startPosition, length);
+  } else {
+    return columnChecker(startPosition, length);
+  }
+}
+
+function shipPlacer(startPosition, shipType, orientation) {
+  positionChecker(startPosition, shipType, orientation);
 }
 
 export {

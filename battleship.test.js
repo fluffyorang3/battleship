@@ -48,5 +48,5 @@ test("Random position array length", () => {
 test("Position checker", () => {
   expect(
     positionChecker(availableShips[0], [3, 5], "horizontal")
-  ).toStrictEqual(["CA", [3, 5], "horizontal"]);
+  ).toStrictEqual(true);
 });
