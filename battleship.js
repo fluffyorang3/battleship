@@ -1,6 +1,3 @@
-import { randomUUID } from "crypto";
-import { start } from "repl";
-
 function ship(length, symbol) {
   let hits = 0;
   let isSunk = false;
@@ -28,14 +25,14 @@ function ship(length, symbol) {
   };
 }
 
-const availableShips = (function () {
+function createAvailableShips() {
   const CARRIER = ship(5, "CA");
   const BATTLESHIP = ship(4, "BA");
   const CRUISER = ship(3, "CR");
   const SUBMARINE = ship(3, "SU");
   const DESTROYER = ship(2, "DE");
   return [CARRIER, BATTLESHIP, CRUISER, SUBMARINE, DESTROYER];
-})();
+}
 
 function randomOrientationSelector() {
   const orientationOptions = ["horizontal", "vertical"];
@@ -54,10 +51,8 @@ function randomPositionSelector() {
   return [row, column];
 }
 
-const grid = gridCreator();
-
-function rowChecker(startPosition, length) {
-  function horizontalCheck(startPosition, length) {
+function rowChecker(grid, startPosition, length) {
+  function horizontalCheck(grid, startPosition, length) {
     for (let i = 0; i < length; i++) {
       if (grid[startPosition[0]][startPosition[1] + i] !== 0) {
         return false;
@@ -68,7 +63,7 @@ function rowChecker(startPosition, length) {
 
   if (
     startPosition[1] + length > 10 ||
-    horizontalCheck(startPosition, length) === false
+    horizontalCheck(grid, startPosition, length) === false
   ) {
     return false;
   } else {
@@ -76,8 +71,8 @@ function rowChecker(startPosition, length) {
   }
 }
 
-function columnChecker(startPosition, length) {
-  function verticalCheck(startPosition, length) {
+function columnChecker(grid, startPosition, length) {
+  function verticalCheck(grid, startPosition, length) {
     for (let i = 0; i < length; i++) {
       if (grid[startPosition[0] + i][startPosition[1]] !== 0) {
         return false;
@@ -88,7 +83,7 @@ function columnChecker(startPosition, length) {
 
   if (
     startPosition[0] + length > 10 ||
-    verticalCheck(startPosition, length) === false
+    verticalCheck(grid, startPosition, length) === false
   ) {
     return false;
   } else {
@@ -96,43 +91,69 @@ function columnChecker(startPosition, length) {
   }
 }
 
-function positionChecker(shipType, startPosition, orientation) {
-  let length = 3;
+function positionChecker(grid, shipType, startPosition, orientation) {
+  let length = shipType.length;
   if (orientation === "horizontal") {
-    return rowChecker(startPosition, length);
+    return rowChecker(grid, startPosition, length);
   } else {
-    return columnChecker(startPosition, length);
+    return columnChecker(grid, startPosition, length);
   }
 }
 
-function rowSymbol(startPosition, length) {
-  for (let i = 0; i < length; i++) {
-    grid[startPosition[0]][startPosition[1] + i] = shipType.symbol;
-  }
-}
-
-function columnSymbol(startPosition, length) {
-  for (let i = 0; i < length; i++) {
-    grid[startPosition[0] + i][startPosition[1]] = shipType.symbol;
-  }
-}
-
-function symbolPlacer(shipType, startPosition, orientation) {
+function symbolPlacer(grid, shipType, startPosition, orientation) {
+  let length = shipType.length;
   if (orientation === "horizontal") {
-    return rowChecker(startPosition, length);
+    rowSymbol(grid, startPosition, length, shipType.symbol);
   } else {
-    return columnChecker(startPosition, length);
+    columnSymbol(grid, startPosition, length, shipType.symbol);
   }
 }
 
-function shipPlacer(startPosition, shipType, orientation) {
-  positionChecker(startPosition, shipType, orientation);
+function rowSymbol(grid, startPosition, length, symbol) {
+  for (let i = 0; i < length; i++) {
+    grid[startPosition[0]][startPosition[1] + i] = symbol;
+  }
 }
+
+function columnSymbol(grid, startPosition, length, symbol) {
+  for (let i = 0; i < length; i++) {
+    grid[startPosition[0] + i][startPosition[1]] = symbol;
+  }
+}
+
+function shipPlacer() {
+  const shipsToPlace = createAvailableShips();
+  const grid = gridCreator();
+
+  while (shipsToPlace.length !== 0) {
+    let startPosition = randomPositionSelector();
+    let orientation = randomOrientationSelector();
+    let currentShip = shipsToPlace[0];
+
+    if (positionChecker(grid, currentShip, startPosition, orientation)) {
+      symbolPlacer(grid, currentShip, startPosition, orientation);
+      shipsToPlace.shift();
+    }
+  }
+
+  return grid;
+}
+
+const test = shipPlacer();
+
+console.log(test);
 
 export {
   ship,
-  availableShips,
+  createAvailableShips,
   randomOrientationSelector,
   randomPositionSelector,
   positionChecker,
+  gridCreator,
+  symbolPlacer,
+  shipPlacer,
+  rowChecker,
+  columnChecker,
+  rowSymbol,
+  columnSymbol,
 };
